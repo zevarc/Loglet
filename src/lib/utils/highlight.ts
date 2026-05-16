@@ -16,7 +16,7 @@ export interface HighlightSegment {
 export function splitByRegex(text: string, re: RegExp): HighlightSegment[] {
   if (!text) return [];
 
-  const flags = re.flags.includes('g') ? re.flags : re.flags + 'g';
+  const flags = re.flags.includes("g") ? re.flags : re.flags + "g";
   const r = new RegExp(re.source, flags);
 
   const out: HighlightSegment[] = [];
@@ -50,10 +50,10 @@ export function splitByRegex(text: string, re: RegExp): HighlightSegment[] {
  */
 export function compileSearchRegex(
   query: string,
-  options: { regex: boolean; caseSensitive: boolean }
+  options: { regex: boolean; caseSensitive: boolean },
 ): RegExp | null {
   if (!query) return null;
-  const flags = options.caseSensitive ? 'g' : 'gi';
+  const flags = options.caseSensitive ? "g" : "gi";
   try {
     if (options.regex) return new RegExp(query, flags);
     return new RegExp(escapeRegex(query), flags);
@@ -63,5 +63,5 @@ export function compileSearchRegex(
 }
 
 function escapeRegex(s: string): string {
-  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }

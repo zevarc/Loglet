@@ -1,9 +1,9 @@
 ---
 name: Feature request
 about: Suggest an idea — but please describe the use case first
-title: '[FR] '
+title: "[FR] "
 labels: enhancement
-assignees: ''
+assignees: ""
 ---
 
 **Use case**

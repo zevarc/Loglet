@@ -11,7 +11,7 @@
  * Spec: docs/ARCHITECTURE.md §5 + §6.3.
  */
 
-import type { LogEntry, LogLevel } from '../types';
+import type { LogEntry, LogLevel } from "../types";
 
 export interface FilterCriteria {
   /** Levels to show. Empty = show none. Full set (V..F) = no level filter. */
@@ -32,7 +32,7 @@ export interface FilterCriteria {
   caseSensitive: boolean;
 }
 
-const ALL_LEVELS = new Set<LogLevel>(['V', 'D', 'I', 'W', 'E', 'F']);
+const ALL_LEVELS = new Set<LogLevel>(["V", "D", "I", "W", "E", "F"]);
 
 export function emptyCriteria(): FilterCriteria {
   return {
@@ -41,13 +41,16 @@ export function emptyCriteria(): FilterCriteria {
     pids: new Set(),
     hiddenNoiseTags: new Set(),
     hiddenIndices: new Set(),
-    query: '',
+    query: "",
     regex: false,
-    caseSensitive: false
+    caseSensitive: false,
   };
 }
 
-export function applyFilter(entries: LogEntry[], criteria: FilterCriteria): Uint32Array {
+export function applyFilter(
+  entries: LogEntry[],
+  criteria: FilterCriteria,
+): Uint32Array {
   const out = new Uint32Array(entries.length);
   let cursor = 0;
 
@@ -64,7 +67,8 @@ export function applyFilter(entries: LogEntry[], criteria: FilterCriteria): Uint
     if (filterByHidden && criteria.hiddenIndices.has(i)) continue;
     if (filterByLevel && !criteria.levels.has(e.level)) continue;
     if (filterByTag && !criteria.tags.has(e.tag)) continue;
-    if (filterByPid && (e.pid === undefined || !criteria.pids.has(e.pid))) continue;
+    if (filterByPid && (e.pid === undefined || !criteria.pids.has(e.pid)))
+      continue;
     if (filterByNoise && criteria.hiddenNoiseTags.has(e.tag)) continue;
     if (matcher && !matcher(e)) continue;
 
@@ -81,14 +85,16 @@ export function applyFilter(entries: LogEntry[], criteria: FilterCriteria): Uint
  * gracefully degrades to a literal substring match so the UI never goes blank
  * mid-typing.
  */
-function compileMatcher(criteria: FilterCriteria): ((e: LogEntry) => boolean) | null {
+function compileMatcher(
+  criteria: FilterCriteria,
+): ((e: LogEntry) => boolean) | null {
   const q = criteria.query;
   if (!q) return null;
 
   if (criteria.regex) {
     let re: RegExp;
     try {
-      re = new RegExp(q, criteria.caseSensitive ? '' : 'i');
+      re = new RegExp(q, criteria.caseSensitive ? "" : "i");
     } catch {
       // Fall back to literal substring on invalid regex.
       return matchSubstring(q, criteria.caseSensitive);
@@ -98,11 +104,15 @@ function compileMatcher(criteria: FilterCriteria): ((e: LogEntry) => boolean) | 
   return matchSubstring(q, criteria.caseSensitive);
 }
 
-function matchSubstring(q: string, caseSensitive: boolean): (e: LogEntry) => boolean {
+function matchSubstring(
+  q: string,
+  caseSensitive: boolean,
+): (e: LogEntry) => boolean {
   if (caseSensitive) {
     return (e) => e.message.includes(q) || e.tag.includes(q);
   }
   const needle = q.toLowerCase();
   return (e) =>
-    e.message.toLowerCase().includes(needle) || e.tag.toLowerCase().includes(needle);
+    e.message.toLowerCase().includes(needle) ||
+    e.tag.toLowerCase().includes(needle);
 }

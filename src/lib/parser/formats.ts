@@ -6,7 +6,7 @@
  * groups to keep the matcher cheap (regex hot path during parse).
  */
 
-import type { LogcatFormat } from '../types';
+import type { LogcatFormat } from "../types";
 
 /**
  * threadtime:  05-15 12:34:56.789  1234  5678 E ActivityManager: msg
@@ -71,10 +71,10 @@ export const RE_EXCEPTION = /^([\w$.]+(?:Exception|Error|Throwable)):/;
  * specific anchor — no other format can accidentally match it.
  */
 export const FORMAT_PROBES: ReadonlyArray<readonly [LogcatFormat, RegExp]> = [
-  ['studio', RE_STUDIO],
-  ['threadtime', RE_THREADTIME],
-  ['time', RE_TIME],
-  ['long', RE_LONG_HEADER],
-  ['brief', RE_BRIEF],
-  ['tag', RE_TAG]
+  ["studio", RE_STUDIO],
+  ["threadtime", RE_THREADTIME],
+  ["time", RE_TIME],
+  ["long", RE_LONG_HEADER],
+  ["brief", RE_BRIEF],
+  ["tag", RE_TAG],
 ];

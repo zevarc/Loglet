@@ -22,10 +22,5 @@
     "lib": ["es2022", "dom", "dom.iterable", "webworker"],
     "types": ["vitest/globals"]
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.js",
-    "src/**/*.svelte",
-    "tests/**/*.ts"
-  ]
+  "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.svelte", "tests/**/*.ts"]
 }

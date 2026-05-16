@@ -2,17 +2,17 @@
  * UI-only state — selections, panel toggles, theme, stack-block folding.
  */
 
-import type { StackBlock } from '../types';
-import { outerBlockHeaders } from '../utils/stackFold';
+import type { StackBlock } from "../types";
+import { outerBlockHeaders } from "../utils/stackFold";
 
-type Theme = 'light' | 'dark' | 'system';
+type Theme = "light" | "dark" | "system";
 
 class UIStore {
   selectedIndex = $state<number | null>(null);
   showFilterPanel = $state(true);
   showDetailPanel = $state(true);
   showHelp = $state(false);
-  theme = $state<Theme>('dark');
+  theme = $state<Theme>("dark");
 
   /** Set of outer stack-block headerIndex values that are currently folded. */
   collapsedBlocks = $state<Set<number>>(new Set());

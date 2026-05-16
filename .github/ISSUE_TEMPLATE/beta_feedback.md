@@ -1,9 +1,9 @@
 ---
 name: Beta feedback
 about: First-week beta testers — your overall experience and friction points
-title: '[Beta] '
+title: "[Beta] "
 labels: feedback
-assignees: ''
+assignees: ""
 ---
 
 **Where did you paste the log from?**

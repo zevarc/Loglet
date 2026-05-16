@@ -3,16 +3,16 @@
  * See docs/ARCHITECTURE.md §4 for the spec these mirror.
  */
 
-export type LogLevel = 'V' | 'D' | 'I' | 'W' | 'E' | 'F';
+export type LogLevel = "V" | "D" | "I" | "W" | "E" | "F";
 
 export type LogcatFormat =
-  | 'threadtime'
-  | 'time'
-  | 'brief'
-  | 'long'
-  | 'tag'
-  | 'studio' // Android Studio Logcat V2 copy format (Hedgehog+)
-  | 'raw';
+  | "threadtime"
+  | "time"
+  | "brief"
+  | "long"
+  | "tag"
+  | "studio" // Android Studio Logcat V2 copy format (Hedgehog+)
+  | "raw";
 
 /** A single parsed log entry. */
 export interface LogEntry {

@@ -3,7 +3,7 @@
  * Day 10 lands the full implementation.
  */
 
-import type { LogEntry, SearchState } from '../types';
+import type { LogEntry, SearchState } from "../types";
 
 export interface SearchMatch {
   /** Index into the source entries[] array */

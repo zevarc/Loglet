@@ -10,12 +10,12 @@
  */
 export function buildTimestamp(
   month: number, // 1-12
-  day: number,   // 1-31
+  day: number, // 1-31
   hours: number,
   minutes: number,
   seconds: number,
   ms: number,
-  now: Date = new Date()
+  now: Date = new Date(),
 ): number {
   const currentYear = now.getUTCFullYear();
   const currentMonth = now.getUTCMonth() + 1;
@@ -27,18 +27,18 @@ export function buildTimestamp(
 /** Format an absolute epoch timestamp as the original logcat-style string. */
 export function formatLogcatTime(ts: number): string {
   const d = new Date(ts);
-  const pad = (n: number, w = 2) => String(n).padStart(w, '0');
+  const pad = (n: number, w = 2) => String(n).padStart(w, "0");
   return (
     pad(d.getUTCMonth() + 1) +
-    '-' +
+    "-" +
     pad(d.getUTCDate()) +
-    ' ' +
+    " " +
     pad(d.getUTCHours()) +
-    ':' +
+    ":" +
     pad(d.getUTCMinutes()) +
-    ':' +
+    ":" +
     pad(d.getUTCSeconds()) +
-    '.' +
+    "." +
     pad(d.getUTCMilliseconds(), 3)
   );
 }

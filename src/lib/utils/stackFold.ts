@@ -7,7 +7,7 @@
  * `hiddenIndices` set.
  */
 
-import type { StackBlock } from '../types';
+import type { StackBlock } from "../types";
 
 /**
  * Given the parser's `stackBlocks` and a set of currently-collapsed block
@@ -22,7 +22,7 @@ import type { StackBlock } from '../types';
  */
 export function hiddenByCollapse(
   blocks: StackBlock[],
-  collapsed: Set<number>
+  collapsed: Set<number>,
 ): Set<number> {
   const out = new Set<number>();
   for (const block of blocks) {

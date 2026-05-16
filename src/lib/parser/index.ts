@@ -9,14 +9,20 @@
  *   5. aggregate meta             → tags / pids / level distribution / time range
  */
 
-import type { LogEntry, LogLevel, LogcatFormat, ParseMeta, ParseResult } from '../types';
-import { detectFormat } from './detect';
-import { RE_LONG_HEADER } from './formats';
-import { createContext, parseLine, type ParseContext } from './parseLine';
-import { detectStackBlocks } from './stack';
-import { buildTimestamp } from '../utils/time';
+import type {
+  LogEntry,
+  LogLevel,
+  LogcatFormat,
+  ParseMeta,
+  ParseResult,
+} from "../types";
+import { detectFormat } from "./detect";
+import { RE_LONG_HEADER } from "./formats";
+import { createContext, parseLine, type ParseContext } from "./parseLine";
+import { detectStackBlocks } from "./stack";
+import { buildTimestamp } from "../utils/time";
 
-const DIVIDER = '---------';
+const DIVIDER = "---------";
 const MAX_LINE_LENGTH = 10_000;
 
 export function parse(text: string): ParseResult {
@@ -24,19 +30,25 @@ export function parse(text: string): ParseResult {
   const ctx = createContext();
 
   const entries: LogEntry[] =
-    format === 'long' ? parseLong(text, ctx) : parseLineByLine(text, format, ctx);
+    format === "long"
+      ? parseLong(text, ctx)
+      : parseLineByLine(text, format, ctx);
 
   return {
     entries,
     format,
     meta: computeMeta(entries),
-    stackBlocks: detectStackBlocks(entries)
+    stackBlocks: detectStackBlocks(entries),
   };
 }
 
 // ─── line-by-line for threadtime / time / brief / tag / raw ───────────────
 
-function parseLineByLine(text: string, format: LogcatFormat, ctx: ParseContext): LogEntry[] {
+function parseLineByLine(
+  text: string,
+  format: LogcatFormat,
+  ctx: ParseContext,
+): LogEntry[] {
   const entries: LogEntry[] = [];
 
   forEachLine(text, (rawLine) => {
@@ -46,14 +58,14 @@ function parseLineByLine(text: string, format: LogcatFormat, ctx: ParseContext):
     if (trimmed.length === 0) return;
     if (trimmed.startsWith(DIVIDER)) return;
 
-    if (format === 'raw') {
+    if (format === "raw") {
       entries.push({
         index: entries.length,
         raw: line,
-        level: 'V',
-        tag: '',
+        level: "V",
+        tag: "",
         message: line,
-        unparsed: true
+        unparsed: true,
       });
       return;
     }
@@ -67,8 +79,8 @@ function parseLineByLine(text: string, format: LogcatFormat, ctx: ParseContext):
     // Continuation line? (stack frames, multi-line messages)
     if (entries.length > 0 && isContinuation(line)) {
       const prev = entries[entries.length - 1]!;
-      prev.message = prev.message ? prev.message + '\n' + line : line;
-      prev.raw = prev.raw + '\n' + line;
+      prev.message = prev.message ? prev.message + "\n" + line : line;
+      prev.raw = prev.raw + "\n" + line;
       return;
     }
 
@@ -76,10 +88,10 @@ function parseLineByLine(text: string, format: LogcatFormat, ctx: ParseContext):
     entries.push({
       index: entries.length,
       raw: line,
-      level: 'V',
-      tag: '',
+      level: "V",
+      tag: "",
       message: line,
-      unparsed: true
+      unparsed: true,
     });
   });
 
@@ -102,7 +114,7 @@ function parseLong(text: string, ctx: ParseContext): LogEntry[] {
       pid: current.pid,
       tid: current.tid,
       tag: current.tag,
-      message: current.bodyLines.join('\n')
+      message: current.bodyLines.join("\n"),
     });
     current = null;
   };
@@ -129,28 +141,36 @@ function parseLong(text: string, ctx: ParseContext): LogEntry[] {
       const ms = Number(time!.slice(9, 12));
       current = {
         raw: line,
-        timestamp: buildTimestamp(month, day, hours, minutes, seconds, ms, ctx.now),
-        level: (level === 'A' ? 'F' : (level as LogLevel)),
+        timestamp: buildTimestamp(
+          month,
+          day,
+          hours,
+          minutes,
+          seconds,
+          ms,
+          ctx.now,
+        ),
+        level: level === "A" ? "F" : (level as LogLevel),
         pid: Number(pid),
         tid: Number(tid),
         tag: tag!.trim(),
-        bodyLines: []
+        bodyLines: [],
       };
       return;
     }
 
     if (current) {
       current.bodyLines.push(line);
-      current.raw += '\n' + line;
+      current.raw += "\n" + line;
     } else {
       // Orphan body line before any header.
       entries.push({
         index: entries.length,
         raw: line,
-        level: 'V',
-        tag: '',
+        level: "V",
+        tag: "",
         message: line,
-        unparsed: true
+        unparsed: true,
       });
     }
   });
@@ -179,18 +199,20 @@ function forEachLine(text: string, cb: (line: string) => void): void {
   let i = 0;
   const n = text.length;
   while (i < n) {
-    let end = text.indexOf('\n', i);
+    let end = text.indexOf("\n", i);
     if (end === -1) end = n;
     let line = text.slice(i, end);
     // strip trailing \r (CRLF inputs)
-    if (line.endsWith('\r')) line = line.slice(0, -1);
+    if (line.endsWith("\r")) line = line.slice(0, -1);
     cb(line);
     i = end + 1;
   }
 }
 
 function truncate(line: string): string {
-  return line.length > MAX_LINE_LENGTH ? line.slice(0, MAX_LINE_LENGTH) + ' …[truncated]' : line;
+  return line.length > MAX_LINE_LENGTH
+    ? line.slice(0, MAX_LINE_LENGTH) + " …[truncated]"
+    : line;
 }
 
 function isContinuation(line: string): boolean {
@@ -199,7 +221,7 @@ function isContinuation(line: string): boolean {
   // Tab
   if (c === 9) return true;
   // 4+ leading spaces
-  if (c === 32 && line.startsWith('    ')) return true;
+  if (c === 32 && line.startsWith("    ")) return true;
   return false;
 }
 
@@ -207,7 +229,12 @@ function computeMeta(entries: LogEntry[]): ParseMeta {
   const tags = new Map<string, number>();
   const pids = new Map<number, number>();
   const levelDistribution: Record<LogLevel, number> = {
-    V: 0, D: 0, I: 0, W: 0, E: 0, F: 0
+    V: 0,
+    D: 0,
+    I: 0,
+    W: 0,
+    E: 0,
+    F: 0,
   };
 
   let parsedLines = 0;
@@ -233,9 +260,9 @@ function computeMeta(entries: LogEntry[]): ParseMeta {
     tags,
     pids,
     levelDistribution,
-    timeRange: minTs === Infinity ? undefined : [minTs, maxTs]
+    timeRange: minTs === Infinity ? undefined : [minTs, maxTs],
   };
 }
 
 export { detectFormat };
-export { parseLine } from './parseLine';
+export { parseLine } from "./parseLine";

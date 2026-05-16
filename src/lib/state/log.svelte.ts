@@ -9,12 +9,12 @@
  * so the main thread stays responsive even on 10⁵+ lines.
  */
 
-import type { ParseResult } from '../types';
-import { getWorkerAPI } from '../worker/client';
-import { uiStore } from './ui.svelte';
+import type { ParseResult } from "../types";
+import { getWorkerAPI } from "../worker/client";
+import { uiStore } from "./ui.svelte";
 
 class LogStore {
-  rawText = $state('');
+  rawText = $state("");
   result = $state<ParseResult | null>(null);
   isParsing = $state(false);
   parseError = $state<string | null>(null);
@@ -45,7 +45,7 @@ class LogStore {
   }
 
   reset(): void {
-    this.rawText = '';
+    this.rawText = "";
     this.result = null;
     this.parseError = null;
     this.isParsing = false;

@@ -8,12 +8,12 @@
  * Spec: docs/PARSER_SPEC.md §5.
  */
 
-import type { LogEntry, LogLevel, LogcatFormat } from '../types';
-import { RE_BRIEF, RE_STUDIO, RE_TAG, RE_THREADTIME, RE_TIME } from './formats';
-import { buildTimestamp } from '../utils/time';
+import type { LogEntry, LogLevel, LogcatFormat } from "../types";
+import { RE_BRIEF, RE_STUDIO, RE_TAG, RE_THREADTIME, RE_TIME } from "./formats";
+import { buildTimestamp } from "../utils/time";
 
 /** Fields produced by parseLine (excludes `index` / `raw`). */
-export type ParsedFields = Omit<LogEntry, 'index' | 'raw'>;
+export type ParsedFields = Omit<LogEntry, "index" | "raw">;
 
 /** Context the line parser needs for cross-line state (year inference). */
 export interface ParseContext {
@@ -30,23 +30,23 @@ export function createContext(now: Date = new Date()): ParseContext {
 export function parseLine(
   line: string,
   format: LogcatFormat,
-  ctx: ParseContext
+  ctx: ParseContext,
 ): ParsedFields | null {
   switch (format) {
-    case 'studio':
+    case "studio":
       return parseStudio(line, ctx);
-    case 'threadtime':
+    case "threadtime":
       return parseThreadtime(line, ctx);
-    case 'time':
+    case "time":
       return parseTime(line, ctx);
-    case 'brief':
+    case "brief":
       return parseBrief(line, ctx);
-    case 'tag':
+    case "tag":
       return parseTag(line, ctx);
-    case 'long':
+    case "long":
       // long format is multi-line; the orchestrator in index.ts handles it.
       return null;
-    case 'raw':
+    case "raw":
       return null;
   }
 }
@@ -68,7 +68,7 @@ function parseStudio(line: string, ctx: ParseContext): ParsedFields | null {
     hours,
     minutes,
     seconds,
-    ms
+    ms,
   );
   return {
     timestamp,
@@ -77,8 +77,8 @@ function parseStudio(line: string, ctx: ParseContext): ParsedFields | null {
     level: normalizeLevel(level!),
     tag: intern(ctx, tag!),
     // "?" is Android Studio's placeholder for an unknown package — drop it.
-    packageName: pkg && pkg !== '?' ? intern(ctx, pkg) : undefined,
-    message: message ?? ''
+    packageName: pkg && pkg !== "?" ? intern(ctx, pkg) : undefined,
+    message: message ?? "",
   };
 }
 
@@ -92,7 +92,7 @@ function parseThreadtime(line: string, ctx: ParseContext): ParsedFields | null {
     tid: Number(tid),
     level: normalizeLevel(level!),
     tag: intern(ctx, tag!),
-    message: message ?? ''
+    message: message ?? "",
   };
 }
 
@@ -105,7 +105,7 @@ function parseTime(line: string, ctx: ParseContext): ParsedFields | null {
     pid: Number(pid),
     level: normalizeLevel(level!),
     tag: intern(ctx, tag!.trim()),
-    message: message ?? ''
+    message: message ?? "",
   };
 }
 
@@ -117,7 +117,7 @@ function parseBrief(line: string, ctx: ParseContext): ParsedFields | null {
     pid: Number(pid),
     level: normalizeLevel(level!),
     tag: intern(ctx, tag!.trim()),
-    message: message ?? ''
+    message: message ?? "",
   };
 }
 
@@ -128,7 +128,7 @@ function parseTag(line: string, ctx: ParseContext): ParsedFields | null {
   return {
     level: normalizeLevel(level!),
     tag: intern(ctx, tag!.trim()),
-    message: message ?? ''
+    message: message ?? "",
   };
 }
 
@@ -136,14 +136,18 @@ function parseTag(line: string, ctx: ParseContext): ParsedFields | null {
 
 /** Normalize Android's "A" (Assert) to our internal "F" (Fatal). */
 function normalizeLevel(raw: string): LogLevel {
-  return (raw === 'A' ? 'F' : (raw as LogLevel));
+  return raw === "A" ? "F" : (raw as LogLevel);
 }
 
 /**
  * Build a millisecond epoch timestamp from logcat's "MM-DD" + "HH:MM:SS.mmm".
  * Year is inferred from `ctx.now` (see PARSER_SPEC §2.2).
  */
-function timestampFromParts(date: string, time: string, ctx: ParseContext): number {
+function timestampFromParts(
+  date: string,
+  time: string,
+  ctx: ParseContext,
+): number {
   // date = "MM-DD", time = "HH:MM:SS.mmm"
   const month = Number(date.slice(0, 2));
   const day = Number(date.slice(3, 5));

@@ -7,10 +7,10 @@
  * Spec: docs/PARSER_SPEC.md §6.
  */
 
-import type { LogEntry, StackBlock } from '../types';
-import { RE_CAUSED_BY, RE_EXCEPTION, RE_FRAME, RE_FRAME_MORE } from './formats';
+import type { LogEntry, StackBlock } from "../types";
+import { RE_CAUSED_BY, RE_EXCEPTION, RE_FRAME, RE_FRAME_MORE } from "./formats";
 
-const FATAL_HEADER = 'FATAL EXCEPTION';
+const FATAL_HEADER = "FATAL EXCEPTION";
 const PROCESS_HEADER = /^Process:\s/;
 const CAUSED_BY_PREFIX = /^Caused by:\s+/;
 
@@ -67,16 +67,19 @@ function findBlockStart(entries: LogEntry[], from: number): number {
  */
 function collectBlock(
   entries: LogEntry[],
-  start: number
+  start: number,
 ): { block: StackBlock; nextIndex: number } {
   let cursor = start;
-  let exception = '';
+  let exception = "";
   let exceptionLineIndex = -1;
 
   // ─── Optional FATAL EXCEPTION preamble + Process metadata ───
   if (entries[cursor]!.message.startsWith(FATAL_HEADER)) {
     cursor++;
-    while (cursor < entries.length && PROCESS_HEADER.test(entries[cursor]!.message)) {
+    while (
+      cursor < entries.length &&
+      PROCESS_HEADER.test(entries[cursor]!.message)
+    ) {
       cursor++;
     }
   }
@@ -84,7 +87,7 @@ function collectBlock(
   // ─── Real exception-class line (may be prefixed with "Caused by:") ───
   if (cursor < entries.length) {
     const raw = entries[cursor]!.message;
-    const stripped = raw.replace(CAUSED_BY_PREFIX, '');
+    const stripped = raw.replace(CAUSED_BY_PREFIX, "");
     const ex = RE_EXCEPTION.exec(stripped);
     if (ex) {
       exception = ex[1]!;
@@ -121,8 +124,8 @@ function collectBlock(
       endIndex: Math.max(start, cursor - 1),
       frameIndices,
       causedByBlocks,
-      exception: exception || 'Unknown'
+      exception: exception || "Unknown",
     },
-    nextIndex: cursor
+    nextIndex: cursor,
   };
 }

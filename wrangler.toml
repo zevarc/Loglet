@@ -1,0 +1,14 @@
+# Cloudflare Pages — Loglet
+#
+# Optional config for `wrangler pages deploy build` (direct upload).
+# Most deploys happen via the Git integration; the dashboard reads this
+# file and pre-fills the equivalent settings.
+#
+# Docs: https://developers.cloudflare.com/pages/functions/wrangler-configuration/
+
+name = "loglet"
+compatibility_date = "2026-04-16"
+pages_build_output_dir = "build"
+
+# Pages picks up _headers from the publish directory automatically — no
+# `[[headers]]` block needed here.

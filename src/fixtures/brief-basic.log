@@ -1,0 +1,5 @@
+I/ActivityManager( 1234): Start proc com.example.app
+D/AppLifecycle( 1234): onCreate
+W/Choreographer( 1234): Skipped 16 frames
+E/DBHelper( 1234): write conflict on row 42
+I/AppLifecycle( 1234): resumed

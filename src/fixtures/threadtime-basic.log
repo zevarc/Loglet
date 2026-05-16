@@ -1,0 +1,10 @@
+--------- beginning of main
+05-15 12:01:23.456  1234  1234 I ActivityManager: Start proc 1234:com.example.app/u0a42 for activity com.example.app/.MainActivity
+05-15 12:01:23.512  1234  1234 D AppLifecycle: onCreate called
+05-15 12:01:23.678  1234  1234 I AppLifecycle: onStart
+05-15 12:01:23.701  1234  5678 D NetworkClient: GET https://api.example.com/v1/items
+05-15 12:01:23.890  1234  5678 I NetworkClient: 200 OK 184 bytes in 189ms
+05-15 12:01:24.012  1234  1234 W Choreographer: Skipped 30 frames!  The application may be doing too much work on its main thread.
+05-15 12:01:24.234  1234  1234 D AppLifecycle: onResume
+05-15 12:01:24.456  1234  9000 E DBHelper: SQL error: no such table: users
+05-15 12:01:24.789  1234  1234 I AppLifecycle: visible

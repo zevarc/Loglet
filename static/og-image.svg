@@ -1,0 +1,69 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0a0b"/>
+      <stop offset="100%" stop-color="#18181c"/>
+    </linearGradient>
+    <style>
+      .mono { font-family: 'JetBrains Mono', 'SF Mono', Menlo, monospace; }
+      .sans { font-family: 'Inter', system-ui, sans-serif; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Brand mark -->
+  <g transform="translate(80, 90)">
+    <rect width="80" height="80" rx="16" fill="#111114" stroke="#2a2a32" stroke-width="1"/>
+    <path d="M22 22 L22 58 L52 58" stroke="#6366f1" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <circle cx="52" cy="58" r="5" fill="#f87171"/>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="180" y="155" class="mono" font-size="64" font-weight="700" fill="#f5f5f7">Loglet</text>
+  <text x="180" y="190" class="sans" font-size="22" fill="#a1a1aa">Open-source logcat beautifier</text>
+
+  <!-- Tagline -->
+  <text x="80" y="280" class="sans" font-size="38" font-weight="600" fill="#d4d4d8">Paste a logcat dump.</text>
+  <text x="80" y="328" class="sans" font-size="38" font-weight="600" fill="#d4d4d8">See it become readable.</text>
+
+  <!-- Stylized log preview window -->
+  <g transform="translate(80, 380)">
+    <rect width="1040" height="200" rx="10" fill="#111114" stroke="#2a2a32" stroke-width="1"/>
+
+    <!-- Row 1: Info green -->
+    <rect x="0" y="20" width="3" height="20" fill="transparent"/>
+    <text x="22" y="35" class="mono" font-size="14" fill="#71717a">12:34:56.789</text>
+    <text x="160" y="35" class="mono" font-size="14" fill="#4ade80" font-weight="600">I</text>
+    <text x="190" y="35" class="mono" font-size="14" fill="#4ade80">ActivityManager</text>
+    <text x="380" y="35" class="mono" font-size="14" fill="#d4d4d8">Process com.example started</text>
+
+    <!-- Row 2: Warning yellow -->
+    <text x="22" y="65" class="mono" font-size="14" fill="#71717a">12:34:56.790</text>
+    <text x="160" y="65" class="mono" font-size="14" fill="#fbbf24" font-weight="600">W</text>
+    <text x="190" y="65" class="mono" font-size="14" fill="#fbbf24">Choreographer</text>
+    <text x="380" y="65" class="mono" font-size="14" fill="#d4d4d8">Skipped 30 frames</text>
+
+    <!-- Row 3: Error red, with left bar -->
+    <rect x="0" y="80" width="3" height="30" fill="#f87171"/>
+    <rect x="0" y="80" width="1040" height="30" fill="#f87171" opacity="0.04"/>
+    <text x="22" y="100" class="mono" font-size="14" fill="#71717a">12:34:56.791</text>
+    <text x="160" y="100" class="mono" font-size="14" fill="#f87171" font-weight="600">E</text>
+    <text x="190" y="100" class="mono" font-size="14" fill="#f87171">DBHelper</text>
+    <text x="380" y="100" class="mono" font-size="14" fill="#d4d4d8">SQL error: no such table</text>
+
+    <!-- Row 4: Fatal purple -->
+    <rect x="0" y="115" width="3" height="30" fill="#c084fc"/>
+    <rect x="0" y="115" width="1040" height="30" fill="#c084fc" opacity="0.06"/>
+    <text x="22" y="135" class="mono" font-size="14" fill="#71717a">12:34:56.792</text>
+    <text x="160" y="135" class="mono" font-size="14" fill="#c084fc" font-weight="600">F</text>
+    <text x="190" y="135" class="mono" font-size="14" fill="#c084fc">AndroidRuntime</text>
+    <text x="380" y="135" class="mono" font-size="14" fill="#d4d4d8">▶ NullPointerException (4 frames)</text>
+
+    <!-- Row 5: Info dimmed -->
+    <text x="22" y="170" class="mono" font-size="14" fill="#71717a">12:34:56.793</text>
+    <text x="160" y="170" class="mono" font-size="14" fill="#4ade80" font-weight="600">I</text>
+    <text x="190" y="170" class="mono" font-size="14" fill="#4ade80">Process</text>
+    <text x="380" y="170" class="mono" font-size="14" fill="#d4d4d8">Sending signal. PID: 4242 SIG: 9</text>
+  </g>
+</svg>

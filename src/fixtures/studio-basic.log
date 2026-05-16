@@ -1,0 +1,8 @@
+2024-05-15 12:01:23.456  1234-1234  ActivityManager        com.example.app    I  Start proc 1234:com.example.app for activity com.example.app/.MainActivity
+2024-05-15 12:01:23.512  1234-1234  AppLifecycle           com.example.app    D  onCreate called
+2024-05-15 12:01:23.678  1234-1234  AppLifecycle           com.example.app    I  onStart
+2024-05-15 12:01:23.701  1234-5678  NetworkClient          com.example.app    D  GET https://api.example.com/v1/items
+2024-05-15 12:01:23.890  1234-5678  NetworkClient          com.example.app    I  200 OK 184 bytes in 189ms
+2024-05-15 12:01:24.012  1234-1234  Choreographer          com.example.app    W  Skipped 30 frames!  The application may be doing too much work on its main thread.
+2024-05-15 12:01:24.456  1234-9000  DBHelper               com.example.app    E  SQL error: no such table: users
+2024-05-15 12:01:24.789  100-100    ActivityManager        ?                  I  Process boot complete

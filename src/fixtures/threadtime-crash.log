@@ -1,0 +1,15 @@
+--------- beginning of crash
+05-15 14:22:01.123  4242  4242 I ActivityManager: Process com.example.app:remote pid=4242 started
+05-15 14:22:01.456  4242  4242 D ImageLoader: loading thumbnail for item#7
+05-15 14:22:01.500  4242  4242 E AndroidRuntime: FATAL EXCEPTION: main
+05-15 14:22:01.500  4242  4242 E AndroidRuntime: Process: com.example.app, PID: 4242
+05-15 14:22:01.500  4242  4242 E AndroidRuntime: java.lang.NullPointerException: Attempt to invoke virtual method 'int java.lang.Integer.intValue()' on a null object reference
+05-15 14:22:01.500  4242  4242 E AndroidRuntime: 	at com.example.app.detail.DetailFragment.bind(DetailFragment.java:88)
+05-15 14:22:01.500  4242  4242 E AndroidRuntime: 	at com.example.app.detail.DetailFragment.onViewCreated(DetailFragment.java:62)
+05-15 14:22:01.500  4242  4242 E AndroidRuntime: 	at androidx.fragment.app.Fragment.performViewCreated(Fragment.java:3097)
+05-15 14:22:01.500  4242  4242 E AndroidRuntime: 	at androidx.fragment.app.FragmentStateManager.createView(FragmentStateManager.java:553)
+05-15 14:22:01.500  4242  4242 E AndroidRuntime: Caused by: java.lang.IllegalStateException: Repository not initialized
+05-15 14:22:01.500  4242  4242 E AndroidRuntime: 	at com.example.app.data.ItemRepository.get(ItemRepository.java:34)
+05-15 14:22:01.500  4242  4242 E AndroidRuntime: 	at com.example.app.detail.DetailFragment.bind(DetailFragment.java:84)
+05-15 14:22:01.500  4242  4242 E AndroidRuntime: 	... 8 more
+05-15 14:22:01.612  4242  4242 I Process: Sending signal. PID: 4242 SIG: 9

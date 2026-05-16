@@ -1,0 +1,151 @@
+@import 'tailwindcss';
+
+/* =========================================================================
+   Loglet 设计 Tokens (与 docs/UI_DESIGN.md 保持同步)
+   ========================================================================= */
+
+@theme {
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, 'Liberation Mono',
+    monospace;
+
+  /* 圆角 */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+}
+
+/* ---------- Dark theme (default) ---------- */
+:root,
+:root[data-theme='dark'] {
+  --bg-0: #0a0a0b;
+  --bg-1: #111114;
+  --bg-2: #18181c;
+  --bg-3: #22222a;
+  --border: #2a2a32;
+  --border-strong: #3a3a45;
+
+  --text-0: #f5f5f7;
+  --text-1: #d4d4d8;
+  --text-2: #a1a1aa;
+  --text-3: #71717a;
+
+  --brand: #6366f1;
+  --brand-hover: #818cf8;
+
+  --log-v: #71717a;
+  --log-d: #60a5fa;
+  --log-i: #4ade80;
+  --log-w: #fbbf24;
+  --log-e: #f87171;
+  --log-f: #c084fc;
+
+  --row-hover: rgb(255 255 255 / 0.025);
+  --row-selected: rgb(99 102 241 / 0.12);
+  --row-error-tint: rgb(248 113 113 / 0.04);
+  --row-fatal-tint: rgb(192 132 252 / 0.06);
+
+  --highlight-bg: #fbbf24;
+  --highlight-fg: #18181c;
+  --highlight-current: #fb923c;
+
+  color-scheme: dark;
+}
+
+/* ---------- Light theme ---------- */
+:root[data-theme='light'] {
+  --bg-0: #f8f9fb;
+  --bg-1: #ffffff;
+  --bg-2: #f4f4f7;
+  --bg-3: #ebebef;
+  --border: #e4e4e8;
+  --border-strong: #d4d4d8;
+
+  --text-0: #18181c;
+  --text-1: #27272a;
+  --text-2: #52525b;
+  --text-3: #a1a1aa;
+
+  --brand: #4f46e5;
+  --brand-hover: #4338ca;
+
+  --log-v: #71717a;
+  --log-d: #2563eb;
+  --log-i: #16a34a;
+  --log-w: #d97706;
+  --log-e: #dc2626;
+  --log-f: #9333ea;
+
+  --row-hover: rgb(0 0 0 / 0.025);
+  --row-selected: rgb(79 70 229 / 0.08);
+  --row-error-tint: rgb(220 38 38 / 0.04);
+  --row-fatal-tint: rgb(147 51 234 / 0.05);
+
+  --highlight-bg: #fef08a;
+  --highlight-fg: #18181c;
+  --highlight-current: #fb923c;
+
+  color-scheme: light;
+}
+
+/* Tailwind v4 utility aliases for design tokens */
+@theme {
+  --color-bg-0: var(--bg-0);
+  --color-bg-1: var(--bg-1);
+  --color-bg-2: var(--bg-2);
+  --color-bg-3: var(--bg-3);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-text-0: var(--text-0);
+  --color-text-1: var(--text-1);
+  --color-text-2: var(--text-2);
+  --color-text-3: var(--text-3);
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-log-v: var(--log-v);
+  --color-log-d: var(--log-d);
+  --color-log-i: var(--log-i);
+  --color-log-w: var(--log-w);
+  --color-log-e: var(--log-e);
+  --color-log-f: var(--log-f);
+}
+
+/* ---------- Base ---------- */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--bg-1);
+  color: var(--text-1);
+  font-feature-settings:
+    'cv11' on,
+    'ss01' on;
+}
+
+/* Monospace contexts use tabular numerics for alignment */
+.font-mono,
+[class*='font-mono'] {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Focus ring */
+*:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Scrollbar (subtle, mostly for the log list) */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 6px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}

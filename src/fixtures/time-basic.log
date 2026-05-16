@@ -1,0 +1,5 @@
+05-15 09:00:01.001 I/ActivityManager( 1234): boot complete
+05-15 09:00:01.234 D/AppLifecycle( 1234): cold start in 312ms
+05-15 09:00:02.567 W/Choreographer( 1234): Skipped 12 frames
+05-15 09:00:02.890 I/NetworkClient( 1234): connectivity online
+05-15 09:00:03.123 E/Auth( 1234): token refresh failed: 401

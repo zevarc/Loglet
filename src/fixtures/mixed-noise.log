@@ -1,0 +1,14 @@
+=========================================
+some leading prose pasted from a chat tool
+=========================================
+
+--------- beginning of main
+--------- beginning of crash
+05-15 12:01:23.456  1234  1234 I ActivityManager: clean threadtime line
+this is a random line that won't match anything
+
+05-15 12:01:23.500  1234  1234 D AppLifecycle: another good line
+[some user comment in brackets that should remain unparsed]
+05-15 12:01:23.512  1234  1234 W Choreographer: Skipped frames
+
+EOF

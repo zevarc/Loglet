@@ -1,0 +1,5 @@
+I/ActivityManager: boot complete
+D/AppLifecycle: onCreate
+W/Choreographer: dropped frames
+E/Auth: 401 unauthorized
+I/AppLifecycle: resumed
